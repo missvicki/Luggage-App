@@ -25,7 +25,7 @@ export const create = async (req, res) => {
         }
         sendConfirmationEmail(email);
         return res.status(responseCode.CREATED).json({
-          message: "User has been created",
+          message: responseMessages.USER_CREATED,
           data: user
         });
       }

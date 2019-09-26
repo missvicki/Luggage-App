@@ -14,8 +14,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 mongoose.Promise = global.Promise;
 
+export const mongodbURL = () => {
+  if (process.env.NODE_ENV === "test") {
+    return process.env.TEST_MONGODB_URL;
+  }
+  return process.env.DATABASE_URL;
+};
+
 mongoose
-  .connect(process.env.DATABASE_URL, {
+  .connect(mongodbURL(), {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: true
@@ -37,3 +44,5 @@ app.use("/api/v1/auth", userRoutes);
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+export default app;
