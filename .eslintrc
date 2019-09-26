@@ -1,0 +1,23 @@
+{
+  "extends": "airbnb",
+  "env": {
+    "node": true,
+    "es6": true,
+    "mocha": true,
+    "browser": true,
+    "commonjs": true
+  },
+  "rules": {
+    "new-cap": 0,
+    "import/prefer-default-export": "off",
+    "import/no-unresolved": 0,
+    "no-plusplus": 0,
+    "no-unused-expressions": 0,
+    "import/no-named-as-default": 0,
+    "consistent-return": 0,
+    "prefer-destructuring": 0,
+    "no-shadow": 0,
+    "array-callback-return": 0,
+    "no-underscore-dangle": 0
+  }
+}
