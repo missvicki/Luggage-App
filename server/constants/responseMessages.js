@@ -8,5 +8,6 @@ export default {
   TOKEN_EXPIRED: "Your session has expired! Please log in and try again.",
   USER_ALREADY_EXISTS:
     "Sorry, Looks like a user with this email already exists ",
-  USER_NOT_FOUND: "Sorry, User with this email can't be found"
+  USER_NOT_FOUND: "Sorry, User with this email can't be found",
+  USER_CREATED: "User has been created"
 };
