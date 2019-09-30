@@ -40,7 +40,6 @@
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
     "express": "^4.17.1",
-    "express-validation": "^1.0.2",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
     "mocha": "^6.2.0",

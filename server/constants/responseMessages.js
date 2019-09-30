@@ -9,5 +9,13 @@ export default {
   USER_ALREADY_EXISTS:
     "Sorry, Looks like a user with this email already exists ",
   USER_NOT_FOUND: "Sorry, User with this email can't be found",
-  USER_CREATED: "User has been created"
+  USER_CREATED: "User has been created",
+  FIRST_NAME_REQUIRED: "Firstname is required",
+  LAST_NAME_REQUIRED: "Lastname is required",
+  EMAIL_REQUIRED: "Email is required",
+  EMAIL_INVALID: "Email is invalid",
+  PHONE_REQUIRED: "Phone is required",
+  PASSWORD_REQUIRED: "Password is required",
+  PASSWORD_INVALID: "Password is invalid.",
+  PASSWORD_EMPTY: "Password field can not be empty"
 };
