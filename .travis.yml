@@ -14,6 +14,7 @@ before_script:
   - npm install
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
+  - go get github.com/jpmonette/apexcov
   - ./cc-test-reporter before-build
   - echo "" >> .env
 
@@ -21,4 +22,6 @@ script:
   - npm run coverage:server
 
 after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - apexcov
+  - ./cc-test-reporter format-coverage -t lcov ./server/coverage/lcov.info
+  - ./cc-test-reporter upload-coverage

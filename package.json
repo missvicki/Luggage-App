@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon --exec babel-node server/index.js",
     "test:server": "NODE_ENV=test nyc mocha --recursive --require @babel/register ./server/tests/ --exit",
-    "coverage:server": "nyc --reporter html --reporter text --report-dir ./server/coverage npm run test:server"
+    "coverage:server": "nyc --reporter=lcov --reporter=text --report-dir ./server/coverage npm run test:server"
   },
   "author": "Victor Nomwesigwa",
   "license": "ISC",
