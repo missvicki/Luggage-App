@@ -1,5 +1,5 @@
 import Joi from "joi";
-import responseMessages from "../constants/responseMessages";
+import responseMessages from "../../constants/responseMessages";
 
 export const createUser = Joi.object({
   firstname: Joi.string()
@@ -88,4 +88,48 @@ export const createUser = Joi.object({
       return errors;
     }),
   confirmed: Joi.boolean()
+});
+
+export const loginUser = Joi.object({
+  email: Joi.string()
+    .email()
+    .required()
+    .trim()
+    .error(errors => {
+      errors.forEach(err => {
+        switch (err.type) {
+          case "any.required":
+            err.message = responseMessages.EMAIL_REQUIRED;
+            break;
+          case "string.email":
+            err.message = responseMessages.EMAIL_INVALID;
+          default:
+            break;
+        }
+      });
+      return errors;
+    }),
+  password: Joi.string()
+    .trim()
+    .required()
+    .min(8)
+    .max(12)
+    .error(errors => {
+      errors.forEach(err => {
+        switch (err.type) {
+          case "any.required":
+            err.message = responseMessages.PASSWORD_REQUIRED;
+            break;
+          case "string.min" || "string.max":
+            err.message = responseMessages.PASSWORD_INVALID;
+            break;
+          case "string.empty":
+            err.message = responseMessages.PASSWORD_EMPTY;
+            break;
+          default:
+            break;
+        }
+      });
+      return errors;
+    })
 });

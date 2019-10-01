@@ -39,7 +39,9 @@ app.get("/", (req, res) => {
   res.send("App is working");
 });
 
-app.use("/api/v1/auth", userRoutes);
+export const baseUrl = "/api/v1";
+
+app.use(`${baseUrl}/auth`, userRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

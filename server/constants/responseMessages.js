@@ -17,5 +17,6 @@ export default {
   PHONE_REQUIRED: "Phone is required",
   PASSWORD_REQUIRED: "Password is required",
   PASSWORD_INVALID: "Password is invalid.",
-  PASSWORD_EMPTY: "Password field can not be empty"
+  PASSWORD_EMPTY: "Password field can not be empty",
+  INCOMPLETE_ACCOUNT: "Please, return to your email and confirm your account"
 };
