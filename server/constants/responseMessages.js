@@ -18,5 +18,6 @@ export default {
   PASSWORD_REQUIRED: "Password is required",
   PASSWORD_INVALID: "Password is invalid.",
   PASSWORD_EMPTY: "Password field can not be empty",
-  INCOMPLETE_ACCOUNT: "Please, return to your email and confirm your account"
+  INCOMPLETE_ACCOUNT: "Please, return to your email and confirm your account",
+  NO_USERS: "There are no users"
 };
