@@ -87,6 +87,20 @@ export const createUser = Joi.object({
       });
       return errors;
     }),
+  admin: Joi.boolean()
+    .required()
+    .error(errors => {
+      errors.forEach(err => {
+        switch (err.type) {
+          case "any.required":
+            err.message = "Specify if user is an admin";
+            break;
+          default:
+            break;
+        }
+      });
+      return errors;
+    }),
   confirmed: Joi.boolean()
 });
 

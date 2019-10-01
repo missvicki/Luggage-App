@@ -11,7 +11,8 @@ const userSchema = mongoose.Schema({
   },
   phoneNumber: { type: Number, required: true },
   password: { type: String, required: true, minLength: 8 },
-  confirmed: { type: Boolean, default: false }
+  confirmed: { type: Boolean, default: false },
+  admin: { type: Boolean, required: true }
 });
 
 // hash the password before the user is added to the database
