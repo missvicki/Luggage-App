@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import dotEnv from "dotenv";
 import mongoose from "mongoose";
 import userRoutes from "./routes/user";
+import profileRoutes from "./routes/profile";
 
 dotEnv.config();
 
@@ -42,6 +43,7 @@ app.get("/", (req, res) => {
 export const baseUrl = "/api/v1";
 
 app.use(`${baseUrl}/auth`, userRoutes);
+app.use(`${baseUrl}/users`, profileRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
