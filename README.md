@@ -38,6 +38,8 @@ A passenger luggage Identifying system for buses with extensive functionality to
 | POST /auth/signup             | create a user                 | No        |
 | POST /auth/signin             | login a user and return token | No        |
 | PUT /auth/confirmation/:token | Confirm user email            | No        |
+| GET /users/                   | Fetch users                   | No        |
+| GET /users/:email             | Get a single user             | Yes       |
 
 ###### Tools Used
 
