@@ -7,7 +7,7 @@ import responseMessages from "../constants/responseMessages";
 import { sendConfirmationEmail } from "../utils/mailer";
 
 export const create = async (req, res) => {
-  const { firstname, lastname, email, phoneNumber, password } = req.body;
+  const { firstname, lastname, email, phoneNumber, password, admin } = req.body;
   try {
     // make sure user does not exist already
     await User.create(
@@ -16,7 +16,8 @@ export const create = async (req, res) => {
         lastname,
         email,
         phoneNumber,
-        password
+        password,
+        admin
       },
       function(err, user) {
         if (err) {
@@ -96,7 +97,8 @@ export const login = async (req, res) => {
       id: userData._id,
       email: userData.email,
       firstname: userData.firstname,
-      lastname: userData.lastname
+      lastname: userData.lastname,
+      admin: userData.admin
     };
     const token = jwt.sign(payload, process.env.JWT_SECRET);
     const data = {

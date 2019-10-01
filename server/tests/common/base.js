@@ -18,7 +18,8 @@ export const createUser = async () => {
     lastname: "nomwesigwa",
     email: "vicki@mail.com",
     password: "emaaj3923",
-    phoneNumber: 92939293
+    phoneNumber: 92939293,
+    admin: true
   };
   try {
     await User.create(data);
