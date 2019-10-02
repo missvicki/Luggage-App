@@ -5,7 +5,7 @@ import { validateCreateUser, validateLoginUser } from "../middleware/index";
 const router = express.Router();
 
 router.post("/signup", [validateCreateUser], create);
-router.put("/confirmation/:token", confirmed);
+router.patch("/confirmation/:token", confirmed);
 router.post("/signin", [validateLoginUser], login);
 
 export default router;

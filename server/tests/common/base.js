@@ -43,13 +43,18 @@ export class AppTest {
     const request = this.app.post(`${baseUrl}${url}`);
     return AppTest.__addAuthorization(request);
   };
-  static put = url => {
-    const request = this.app.put(`${baseUrl}${url}`);
+  static patch = url => {
+    const request = this.app.patch(`${baseUrl}${url}`);
     return AppTest.__addAuthorization(request);
   };
 
   static get = url => {
     const request = this.app.get(`${baseUrl}${url}`);
+    return AppTest.__addAuthorization(request);
+  };
+
+  static delete = url => {
+    const request = this.app.delete(`${baseUrl}${url}`);
     return AppTest.__addAuthorization(request);
   };
 

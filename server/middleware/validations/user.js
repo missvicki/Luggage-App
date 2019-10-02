@@ -147,3 +147,50 @@ export const loginUser = Joi.object({
       return errors;
     })
 });
+
+export const updateUser = Joi.object({
+  firstname: Joi.string()
+    .required()
+    .trim()
+    .error(errors => {
+      errors.forEach(err => {
+        switch (err.type) {
+          case "any.required":
+            err.message = responseMessages.FIRST_NAME_REQUIRED;
+            break;
+          default:
+            break;
+        }
+      });
+      return errors;
+    }),
+  lastname: Joi.string()
+    .required()
+    .trim()
+    .error(errors => {
+      errors.forEach(err => {
+        switch (err.type) {
+          case "any.required":
+            err.message = responseMessages.LAST_NAME_REQUIRED;
+            break;
+          default:
+            break;
+        }
+      });
+      return errors;
+    }),
+  phoneNumber: Joi.number()
+    .required()
+    .error(errors => {
+      errors.forEach(err => {
+        switch (err.type) {
+          case "any.required":
+            err.message = responseMessages.PHONE_REQUIRED;
+            break;
+          default:
+            break;
+        }
+      });
+      return errors;
+    })
+});
