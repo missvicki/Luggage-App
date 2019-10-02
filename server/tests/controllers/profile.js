@@ -123,4 +123,44 @@ describe("User profile", () => {
       })
     );
   });
+  describe("Change user password", () => {
+    it(
+      "should not change a user's password if passwords don't match",
+      mockAsync(async () => {
+        const response = await AppTest.put("/users/change-password").send({
+          password: "hey92034",
+          confirmPassword: "he 2034"
+        });
+        expect(response.status).to.equal(400);
+      })
+    );
+    it(
+      "should not change a user's password if confirm password is not provided",
+      mockAsync(async () => {
+        const response = await AppTest.put("/users/change-password").send({
+          password: "hey034950"
+        });
+        expect(response.status).to.equal(400);
+      })
+    );
+    it(
+      "should not change a user's password if password is not provided",
+      mockAsync(async () => {
+        const response = await AppTest.put("/users/change-password").send({
+          confirmPassword: "hey456034"
+        });
+        expect(response.status).to.equal(400);
+      })
+    );
+    it(
+      "should not change a user's password if password is too short",
+      mockAsync(async () => {
+        const response = await AppTest.put("/users/change-password").send({
+          password: "hey034",
+          confirmPassword: "hey034"
+        });
+        expect(response.status).to.equal(400);
+      })
+    );
+  });
 });

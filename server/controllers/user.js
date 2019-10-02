@@ -4,7 +4,12 @@ import bcrypt from "bcryptjs";
 import { User } from "../models/user";
 import responseCodes from "../constants/responseCodes";
 import responseMessages from "../constants/responseMessages";
-import { sendConfirmationEmail } from "../utils/mailer";
+import status from "../constants/status";
+import {
+  sendConfirmationEmail,
+  sendForgotPasswordEmail
+} from "../utils/mailer";
+import { stat } from "fs";
 
 export const create = async (req, res) => {
   const { firstname, lastname, email, phoneNumber, password, admin } = req.body;
@@ -42,31 +47,36 @@ export const create = async (req, res) => {
 
 export const confirmed = async (req, res) => {
   try {
-    const { token } = req.body;
+    const token = req.params.token;
     if (token) {
-      jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+      jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
         if (err) {
-          res.status(responseCodes.UNAUTHAURISED).json({
-            status: "Error",
-            message: "Missing token"
+          return res.status(responseCodes.FORBIDDEN).json({
+            status: status.ERROR,
+            message: responseMessages.TOKEN_EXPIRED
           });
         } else {
-          User.findOneAndUpdate({ email: decoded.email }, { confirmed: true })
-            .then(() => {
-              res
-                .status(responseCodes.OK)
-                .json({ message: "Email has been confirmed" });
-            })
-            .catch(err => {
-              res
-                .status(responseCodes.NOT_FOUND)
-                .json({ message: "User could not be found", error: err });
-            });
+          const user = await User.findOneAndUpdate(
+            { email: decoded.email },
+            { confirmed: true }
+          );
+          if (user === null) {
+            return res
+              .status(responseCodes.NOT_FOUND)
+              .json({ message: responseMessages.USER_NOT_FOUND });
+          }
+          return res
+            .status(responseCodes.OK)
+            .json({ message: responseMessages.EMAIL_CONFIRMED });
         }
       });
     }
+    return res.status(responseCodes.UNAUTHAURISED).json({
+      status: status.ERROR,
+      message: responseMessages.TOKEN_NOT_PROVIDED
+    });
   } catch (err) {
-    res
+    return res
       .status(responseCodes.SERVER_ERROR)
       .json({ message: responseMessages.INTERNAL_SERVER_ERROR, error: err });
   }
@@ -113,7 +123,61 @@ export const login = async (req, res) => {
       data
     });
   } catch (err) {
-    res
+    return res
+      .status(responseCodes.SERVER_ERROR)
+      .json({ message: responseMessages.INTERNAL_SERVER_ERROR, error: err });
+  }
+};
+
+export const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const userData = await User.findOne({ email });
+    if (userData === null) {
+      return res
+        .status(responseCodes.NOT_FOUND)
+        .json({ message: responseMessages.USER_NOT_FOUND });
+    }
+    await sendForgotPasswordEmail(email);
+    return res
+      .status(responseCodes.OK)
+      .json({ message: responseMessages.PASSWORD_RESET });
+  } catch (error) {
+    return res
+      .status(responseCodes.SERVER_ERROR)
+      .json({ message: responseMessages.INTERNAL_SERVER_ERROR, error: err });
+  }
+};
+
+export const resetPassword = async (req, res) => {
+  try {
+    const token = req.params.token;
+    const { password } = req.body;
+    if (token) {
+      jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
+        if (err) {
+          return res.status(responseCodes.FORBIDDEN).json({
+            status: status.ERROR,
+            message: responseMessages.TOKEN_EXPIRED
+          });
+        } else {
+          const user = await User.findOneAndUpdate(
+            { email: decoded.email },
+            { password: await bcrypt.hash(password, 8) }
+          );
+          if (user === null) {
+            return res
+              .status(responseCodes.NOT_FOUND)
+              .json({ message: responseMessages.USER_NOT_FOUND });
+          }
+          return res
+            .status(responseCodes.OK)
+            .json({ message: responseMessages.PASSWORD_CHANGED });
+        }
+      });
+    }
+  } catch (err) {
+    return res
       .status(responseCodes.SERVER_ERROR)
       .json({ message: responseMessages.INTERNAL_SERVER_ERROR, error: err });
   }
