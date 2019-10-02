@@ -6,6 +6,7 @@ import { User } from "../../models/user";
 import { AppTest } from "../common";
 import { removeCollection, createUser } from "../common/base";
 import responseMessages from "../../constants/responseMessages";
+import { create } from "domain";
 
 chai.use(chaiHttp);
 chai.should();
@@ -202,5 +203,86 @@ describe("Users", function() {
       });
       expect(response.status).to.equal(400);
     });
+  });
+
+  describe("forgot password", () => {
+    beforeEach(
+      mockAsync(async () => {
+        await removeCollection(User);
+        await createUser();
+      })
+    );
+    it(
+      "should not send user email if email is invalid",
+      mockAsync(async () => {
+        const response = await AppTest.post("/auth/forgot-password").send({
+          email: "viimail.com"
+        });
+        expect(response.status).to.equal(400);
+      })
+    );
+    it(
+      "should not send user email if email is not found",
+      mockAsync(async () => {
+        const response = await AppTest.post("/auth/forgot-password").send({
+          email: "vii@mail.com"
+        });
+        expect(response.status).to.equal(404);
+      })
+    );
+  });
+  describe("reset password", () => {
+    beforeEach(
+      mockAsync(async () => {
+        await removeCollection(User);
+        await createUser();
+      })
+    );
+    it(
+      "should not reset user password if passwords do not match",
+      mockAsync(async () => {
+        const res = await AppTest.patch(
+          `/auth/reset-password/${AppTest.token}`
+        ).send({
+          password: "heyaj",
+          confirmPassword: "hey034daj"
+        });
+        expect(res.status).to.equal(400);
+      })
+    );
+    it(
+      "should not reset user password if password is not provided",
+      mockAsync(async () => {
+        const res = await AppTest.patch(
+          `/auth/reset-password/${AppTest.token}`
+        ).send({
+          confirmPassword: "hey034daj"
+        });
+        expect(res.status).to.equal(400);
+      })
+    );
+    it(
+      "should not reset user password if confirm password is not provided",
+      mockAsync(async () => {
+        const res = await AppTest.patch(
+          `/auth/reset-password/${AppTest.token}`
+        ).send({
+          password: "hey034daj"
+        });
+        expect(res.status).to.equal(400);
+      })
+    );
+    it(
+      "should not reset user password if password is not valid",
+      mockAsync(async () => {
+        const res = await AppTest.patch(
+          `/auth/reset-password/${AppTest.token}`
+        ).send({
+          confirmPassword: "jsjad",
+          password: "jsjad"
+        });
+        expect(res.status).to.equal(400);
+      })
+    );
   });
 });

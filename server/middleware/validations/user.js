@@ -194,3 +194,69 @@ export const updateUser = Joi.object({
       return errors;
     })
 });
+
+export const emailVal = Joi.object({
+  email: Joi.string()
+    .email()
+    .required()
+    .trim()
+    .error(errors => {
+      errors.forEach(err => {
+        switch (err.type) {
+          case "any.required":
+            err.message = responseMessages.EMAIL_REQUIRED;
+            break;
+          case "string.email":
+            err.message = responseMessages.EMAIL_INVALID;
+          default:
+            break;
+        }
+      });
+      return errors;
+    })
+});
+
+export const passwordsVal = Joi.object({
+  password: Joi.string()
+    .trim()
+    .required()
+    .min(8)
+    .max(12)
+    .error(errors => {
+      errors.forEach(err => {
+        switch (err.type) {
+          case "any.required":
+            err.message = responseMessages.PASSWORD_REQUIRED;
+            break;
+          case "string.min" || "string.max":
+            err.message = responseMessages.PASSWORD_INVALID;
+            break;
+          case "string.empty":
+            err.message = responseMessages.PASSWORD_EMPTY;
+            break;
+          default:
+            break;
+        }
+      });
+      return errors;
+    }),
+  confirmPassword: Joi.string()
+    .valid(Joi.ref("password"))
+    .required()
+    .options({ language: { any: { allowOnly: "Passwords do not match" } } })
+    .error(errors => {
+      errors.forEach(err => {
+        switch (err.type) {
+          case "any.required":
+            err.message = responseMessages.PASSWORD_REQUIRED;
+            break;
+          case "string.empty":
+            err.message = responseMessages.PASSWORD_EMPTY;
+            break;
+          default:
+            break;
+        }
+      });
+      return errors;
+    })
+});

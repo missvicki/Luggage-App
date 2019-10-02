@@ -48,6 +48,11 @@ export class AppTest {
     return AppTest.__addAuthorization(request);
   };
 
+  static put = url => {
+    const request = this.app.put(`${baseUrl}${url}`);
+    return AppTest.__addAuthorization(request);
+  };
+
   static get = url => {
     const request = this.app.get(`${baseUrl}${url}`);
     return AppTest.__addAuthorization(request);

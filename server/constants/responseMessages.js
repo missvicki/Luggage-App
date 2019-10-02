@@ -14,6 +14,7 @@ export default {
   LAST_NAME_REQUIRED: "Lastname is required",
   EMAIL_REQUIRED: "Email is required",
   EMAIL_INVALID: "Email is invalid",
+  EMAIL_CONFIRMED: "Email has been confirmed",
   PHONE_REQUIRED: "Phone is required",
   PASSWORD_REQUIRED: "Password is required",
   PASSWORD_INVALID: "Password is invalid.",
@@ -22,5 +23,7 @@ export default {
   NO_USERS: "There are no users",
   UPDATED_SUCCESSFULLY: "Information updated successfully",
   PHONE_INVALID: "Phone Number is invalid",
-  DELETE_SUCCESSFUL: "Successfully deleted"
+  DELETE_SUCCESSFUL: "Successfully deleted",
+  PASSWORD_RESET: "A Reset Password link has been sent to your email",
+  PASSWORD_CHANGED: "Password has been updated successfully"
 };
