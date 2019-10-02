@@ -33,13 +33,15 @@ A passenger luggage Identifying system for buses with extensive functionality to
 
 ###### Application Features
 
-| EndPoint                      | Function                      | Protected |
-| ----------------------------- | ----------------------------- | --------- |
-| POST /auth/signup             | create a user                 | No        |
-| POST /auth/signin             | login a user and return token | No        |
-| PUT /auth/confirmation/:token | Confirm user email            | No        |
-| GET /users/                   | Fetch users                   | No        |
-| GET /users/:email             | Get a single user             | Yes       |
+| EndPoint                        | Function                      | Protected |
+| ------------------------------- | ----------------------------- | --------- |
+| POST /auth/signup               | create a user                 | No        |
+| POST /auth/signin               | login a user and return token | No        |
+| PATCH /auth/confirmation/:token | Confirm user email            | No        |
+| GET /users/                     | Fetch users                   | Yes       |
+| GET /users/:email               | Get a single user             | Yes       |
+| Delete /users/:email            | Delete a single user          | Yes       |
+| PATCH /users/:email             | Update a single user          | Yes       |
 
 ###### Tools Used
 

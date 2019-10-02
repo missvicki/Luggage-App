@@ -9,16 +9,17 @@ export const list = async (req, res) => {
     if (!userData) {
       return res
         .status(responseCodes.NOT_FOUND)
-        .json({ message: responseMessages.NO_USERS, error: err });
+        .json({ message: responseMessages.NO_USERS, status: status.FAIL });
     }
     const data = {
       userData
     };
     return res.status(responseCodes.OK).json({ success: true, data });
   } catch (error) {
-    return res
-      .status(responseCodes.SERVER_ERROR)
-      .json({ message: responseMessages.INTERNAL_SERVER_ERROR });
+    return res.status(responseCodes.SERVER_ERROR).json({
+      message: responseMessages.INTERNAL_SERVER_ERROR,
+      status: status.FAIL
+    });
   }
 };
 
@@ -26,15 +27,64 @@ export const findAUser = async (req, res) => {
   const email = req.params.email;
   try {
     const userData = await User.findOne({ email });
-    if (!userData) {
-      return res
-        .status(responseCodes.NOT_FOUND)
-        .json({ message: responseMessages.NO_USERS, error: err });
+    if (userData === null) {
+      return res.status(responseCodes.NOT_FOUND).json({
+        message: responseMessages.USER_NOT_FOUND,
+        status: status.FAIL
+      });
     }
     const data = {
       userData
     };
     return res.status(responseCodes.OK).json({ status: status.SUCCESS, data });
+  } catch (error) {
+    return res.status(responseCodes.SERVER_ERROR).json({
+      message: responseMessages.INTERNAL_SERVER_ERROR,
+      status: status.FAIL
+    });
+  }
+};
+
+export const updateAUser = async (req, res) => {
+  const email = req.params.email;
+  const { firstname, lastname, phoneNumber } = req.body;
+  try {
+    const userData = await User.findOneAndUpdate(
+      { email },
+      { firstname, lastname, phoneNumber }
+    );
+    if (userData === null) {
+      return res.status(responseCodes.NOT_FOUND).json({
+        message: responseMessages.USER_NOT_FOUND,
+        status: status.FAIL
+      });
+    }
+    return res.status(responseCodes.OK).json({
+      message: responseMessages.UPDATED_SUCCESSFULLY,
+      status: status.SUCCESS,
+      data: { user: userData }
+    });
+  } catch (error) {
+    return res
+      .status(responseCodes.SERVER_ERROR)
+      .json({ message: responseMessages.INTERNAL_SERVER_ERROR });
+  }
+};
+
+export const deleteAUser = async (req, res) => {
+  const email = req.params.email;
+  try {
+    const userData = await User.findOneAndDelete({ email });
+    if (userData === null) {
+      return res.status(responseCodes.NOT_FOUND).json({
+        message: responseMessages.USER_NOT_FOUND,
+        status: status.FAIL
+      });
+    }
+    return res.status(responseCodes.OK).json({
+      status: status.SUCCESS,
+      message: responseMessages.DELETE_SUCCESSFUL
+    });
   } catch (error) {
     return res
       .status(responseCodes.SERVER_ERROR)

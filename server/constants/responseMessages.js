@@ -19,5 +19,8 @@ export default {
   PASSWORD_INVALID: "Password is invalid.",
   PASSWORD_EMPTY: "Password field can not be empty",
   INCOMPLETE_ACCOUNT: "Please, return to your email and confirm your account",
-  NO_USERS: "There are no users"
+  NO_USERS: "There are no users",
+  UPDATED_SUCCESSFULLY: "Information updated successfully",
+  PHONE_INVALID: "Phone Number is invalid",
+  DELETE_SUCCESSFUL: "Successfully deleted"
 };
