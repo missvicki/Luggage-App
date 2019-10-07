@@ -34,6 +34,22 @@ export const createUser = async () => {
   }
 };
 
+export const getCurrentUser = async req => {
+  if (!req.authorization || req.authorization.trim().length === 0) {
+    return false;
+  }
+  const token = await req.authorization.split(" ")[1];
+
+  try {
+    if (token) {
+      const decodeData = jwt.verify(token, process.env.JWT_SECRET);
+      return decodeData;
+    }
+  } catch (err) {
+    return false;
+  }
+};
+
 export class AppTest {
   static app = supertest(app);
 

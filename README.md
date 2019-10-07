@@ -45,6 +45,7 @@ A passenger luggage Identifying system for buses with extensive functionality to
 | POST /auth/forgot-password        | Send reset password link to email    | No        |
 | PATCH /auth/reset-password/:token | Reset user password                  | No        |
 | PUT /users/change-password        | Allows user to change their password | Yes       |
+| POST /trips/                      | An admin can create a bus trip       | Yes       |
 
 ###### Tools Used
 

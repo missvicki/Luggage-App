@@ -7,6 +7,8 @@ import {
   passwordsVal
 } from "./validations/user";
 
+import { tripVal } from "./validations/trips";
+
 export const validateCreateUser = (req, res, next) => {
   return JoiValidator.validateRequestBody(req, res, next, createUser);
 };
@@ -25,4 +27,8 @@ export const validateEmailAddress = (req, res, next) => {
 
 export const validatePasswordAddress = (req, res, next) => {
   return JoiValidator.validateRequestBody(req, res, next, passwordsVal);
+};
+
+export const validateTrips = (req, res, next) => {
+  return JoiValidator.validateRequestBody(req, res, next, tripVal);
 };
