@@ -6,7 +6,6 @@ import { User } from "../../models/user";
 import { AppTest } from "../common";
 import { removeCollection, createUser } from "../common/base";
 import responseMessages from "../../constants/responseMessages";
-import { create } from "domain";
 
 chai.use(chaiHttp);
 chai.should();
@@ -199,7 +198,7 @@ describe("Users", function() {
         lastname: "ajjjakdka",
         password: 283828,
         phoneNumber: 8183093029,
-        admin: false
+        admin: true
       });
       expect(response.status).to.equal(400);
     });

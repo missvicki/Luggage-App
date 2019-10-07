@@ -25,5 +25,8 @@ export default {
   PHONE_INVALID: "Phone Number is invalid",
   DELETE_SUCCESSFUL: "Successfully deleted",
   PASSWORD_RESET: "A Reset Password link has been sent to your email",
-  PASSWORD_CHANGED: "Password has been updated successfully"
+  PASSWORD_CHANGED: "Password has been updated successfully",
+  FORBIDDEN: "You are forbidden from performing this action",
+  TRIP_CREATED: "Trip has been created",
+  UNKNOWN_ERROR: "Service is unavailable"
 };

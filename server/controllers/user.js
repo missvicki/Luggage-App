@@ -9,7 +9,6 @@ import {
   sendConfirmationEmail,
   sendForgotPasswordEmail
 } from "../utils/mailer";
-import { stat } from "fs";
 
 export const create = async (req, res) => {
   const { firstname, lastname, email, phoneNumber, password, admin } = req.body;
@@ -71,10 +70,6 @@ export const confirmed = async (req, res) => {
         }
       });
     }
-    return res.status(responseCodes.UNAUTHAURISED).json({
-      status: status.ERROR,
-      message: responseMessages.TOKEN_NOT_PROVIDED
-    });
   } catch (err) {
     return res
       .status(responseCodes.SERVER_ERROR)
