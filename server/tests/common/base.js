@@ -1,8 +1,8 @@
 import supertest from "supertest";
+import jwt from "jsonwebtoken";
+
 import app from "../../index";
 import { User } from "../../models/user";
-import { generateToken } from "./jwt";
-
 const baseUrl = "/api/v1";
 
 export const removeCollection = async model => {
@@ -81,7 +81,14 @@ export class AppTest {
 
   static loginRandom = async user => {
     const userToLogin = await User.findOne({ email: user.email });
-    this.token = generateToken(userToLogin.email);
+    const payload = {
+      id: userToLogin._id,
+      email: userToLogin.email,
+      firstname: userToLogin.firstname,
+      lastname: userToLogin.lastname,
+      admin: userToLogin.admin
+    };
+    this.token = jwt.sign(payload, process.env.JWT_SECRET);
   };
 
   static __addAuthorization(request) {
