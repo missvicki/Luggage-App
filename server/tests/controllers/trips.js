@@ -5,6 +5,7 @@ import { mockAsync } from "../common/asyncMock";
 import { User } from "../../models/user";
 import { AppTest } from "../common";
 import { removeCollection, createUser, getCurrentUser } from "../common/base";
+import responseMessages from "../../constants/responseMessages";
 
 chai.use(chaiHttp);
 chai.should();
@@ -18,6 +19,20 @@ describe("Trips", () => {
   });
 
   describe("Create Trips", () => {
+    it(
+      "should successfully create a trip",
+      mockAsync(async () => {
+        const res = await AppTest.post("/trips").send({
+          busNumber: "UAG 728Y",
+          busDriver: "Paul Kayinu",
+          busConductor: "Victor Gonzalex",
+          destination: "Mbarara",
+          departure: "Kampala",
+          numberOfPassengers: 65
+        });
+        expect(res.body.message).to.equal(responseMessages.TRIP_CREATED);
+      })
+    );
     it(
       "should not create a trip if busNumber is not provided",
       mockAsync(async () => {
