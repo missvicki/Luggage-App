@@ -3,6 +3,7 @@ import { Trips } from "../models/trips";
 import responseCodes from "../constants/responseCodes";
 import responseMessages from "../constants/responseMessages";
 import status from "../constants/status";
+import { filterTrips } from "../utils/helpers/filter";
 
 export const create = async (req, res) => {
   const {
@@ -31,12 +32,12 @@ export const create = async (req, res) => {
         },
         (err, response) => {
           if (err) {
-            res.status(responseCodes.SERVICE_UNAVAILABLE).json({
+            return res.status(responseCodes.SERVICE_UNAVAILABLE).json({
               message: responseMessages.UNKNOWN_ERROR,
               error: err
             });
           }
-          res.status(responseCodes.CREATED).json({
+          return res.status(responseCodes.CREATED).json({
             message: responseMessages.TRIP_CREATED,
             status: status.SUCCESS,
             data: { trips: response }
@@ -50,9 +51,53 @@ export const create = async (req, res) => {
       });
     }
   } else {
-    res.status(responseCodes.FORBIDDEN).json({
+    return res.status(responseCodes.FORBIDDEN).json({
       message: responseMessages.FORBIDDEN,
       status: status.ERROR
     });
   }
+};
+
+export const list = async (req, res) => {
+  const { destination, departure, busDriver } = req.query;
+
+  const tripData = {
+    destination,
+    departure,
+    busDriver
+  };
+
+  // short way to pass wuery data
+  const trips = await Trips.find(req.query);
+
+  if (!trips.length) {
+    return res.status(responseCodes.NOT_FOUND).json({
+      message: responseMessages.NOT_FOUND_TRIPS,
+      status: status.ERROR
+    });
+  }
+  //  long way to do the querying
+  // const filteredTrips = filterTrips(trips, tripData);
+
+  return res.status(responseCodes.OK).json({
+    message: responseMessages.TRIPS_FOUND,
+    status: status.SUCCESS,
+    data: { trips: trips }
+  });
+};
+
+export const findOne = async (req, res) => {
+  const _id = req.params.id;
+  const trip = await Trips.findById({ _id });
+  if (trip === null) {
+    return res.status(responseCodes.NOT_FOUND).json({
+      message: responseMessages.NOT_FOUND,
+      status: status.ERROR
+    });
+  }
+  return res.status(responseCodes.OK).json({
+    message: responseMessages.TRIPS_FOUND,
+    status: status.SUCCESS,
+    data: { trips: trip }
+  });
 };
