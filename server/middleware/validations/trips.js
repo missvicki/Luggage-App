@@ -1,5 +1,4 @@
 import Joi from "joi";
-import responseMessages from "../../constants/responseMessages";
 
 export const tripVal = Joi.object({
   busNumber: Joi.string()
@@ -92,5 +91,36 @@ export const tripVal = Joi.object({
         }
       });
       return errors;
+    }),
+  price: Joi.number()
+    .required()
+    .error(errors => {
+      errors.forEach(err => {
+        switch (err.type) {
+          case "any.required":
+            err.message = "Price is required";
+            break;
+          default:
+            break;
+        }
+      });
+      return errors;
     })
+});
+
+export const tripQuery = Joi.object({
+  destination: Joi.string().trim(),
+  departure: Joi.string().trim(),
+  busDriver: Joi.string().trim()
+});
+
+export const tripEdit = Joi.object({
+  busNumber: Joi.string().trim(),
+  busDriver: Joi.string().trim(),
+  busConductor: Joi.string().trim(),
+  destination: Joi.string().trim(),
+  departure: Joi.string().trim(),
+  departureDateTime: Joi.date(),
+  destinationDateTime: Joi.date(),
+  price: Joi.number()
 });

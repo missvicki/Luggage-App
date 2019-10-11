@@ -36,7 +36,7 @@ describe("User profile", () => {
     );
   });
 
-  describe("Edit profile", () => {
+  describe("Edit and delete profile", () => {
     it(
       "should delete a user",
       mockAsync(async () => {

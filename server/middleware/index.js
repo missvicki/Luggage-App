@@ -7,7 +7,7 @@ import {
   passwordsVal
 } from "./validations/user";
 
-import { tripVal } from "./validations/trips";
+import { tripVal, tripQuery, tripEdit } from "./validations/trips";
 
 export const validateCreateUser = (req, res, next) => {
   return JoiValidator.validateRequestBody(req, res, next, createUser);
@@ -31,4 +31,24 @@ export const validatePasswordAddress = (req, res, next) => {
 
 export const validateTrips = (req, res, next) => {
   return JoiValidator.validateRequestBody(req, res, next, tripVal);
+};
+
+export const validateQuery = (req, res, next) => {
+  return JoiValidator.validateRequestBody(req, res, next, tripQuery);
+};
+
+export const validateTripsEdit = (req, res, next) => {
+  return JoiValidator.validateRequestBody(req, res, next, tripEdit);
+};
+
+export const validateDepDest = (req, res, next) => {
+  if (req.body.destination === req.body.departure) {
+    return res
+      .status(400)
+      .json({
+        message: "Destination can not be similar to departure",
+        status: 400
+      });
+  }
+  next();
 };

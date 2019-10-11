@@ -3,11 +3,12 @@ import jwt from "jsonwebtoken";
 
 import app from "../../index";
 import { User } from "../../models/user";
+import { Trips } from "../../models/trips";
 const baseUrl = "/api/v1";
 
 export const removeCollection = async model => {
   try {
-    await model.remove({});
+    await model.deleteOne({});
   } catch (e) {
     return e;
   }
@@ -34,19 +35,24 @@ export const createUser = async () => {
   }
 };
 
-export const getCurrentUser = async req => {
-  if (!req.authorization || req.authorization.trim().length === 0) {
-    return false;
-  }
-  const token = await req.authorization.split(" ")[1];
-
+export const createUserNotAdmin = async () => {
+  const data = {
+    firstname: "vic",
+    lastname: "mints",
+    email: "vic@mail.com",
+    password: "emaaj3923",
+    phoneNumber: 92939293,
+    admin: false
+  };
   try {
-    if (token) {
-      const decodeData = jwt.verify(token, process.env.JWT_SECRET);
-      return decodeData;
-    }
-  } catch (err) {
-    return false;
+    await User.create(data);
+    const user = await User.findOneAndUpdate(
+      { email: data.email },
+      { confirmed: true }
+    );
+    return user;
+  } catch (e) {
+    return e;
   }
 };
 
@@ -54,6 +60,7 @@ export class AppTest {
   static app = supertest(app);
 
   static token = null;
+  static trip = null;
 
   static post = url => {
     const request = this.app.post(`${baseUrl}${url}`);
@@ -96,6 +103,24 @@ export class AppTest {
       ? request.set("authorization", `Bearer ${this.token}`)
       : request;
   }
+
+  static createTrip = async () => {
+    const data = {
+      busNumber: "UDP 238A",
+      busDriver: "Jackson",
+      busConductor: "Gomez",
+      destination: "Kampala",
+      departure: "Mbarara",
+      numberOfPassengers: 65,
+      price: 20000
+    };
+    try {
+      const trips = await Trips.create(data);
+      this.trip = trips;
+    } catch (e) {
+      return e;
+    }
+  };
 }
 
 export default AppTest;
