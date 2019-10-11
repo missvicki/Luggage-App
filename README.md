@@ -46,6 +46,10 @@ A passenger luggage Identifying system for buses with extensive functionality to
 | PATCH /auth/reset-password/:token | Reset user password                  | No        |
 | PUT /users/change-password        | Allows user to change their password | Yes       |
 | POST /trips/                      | An admin can create a bus trip       | Yes       |
+| PATCH /trips/:id                  | An admin can edit a bus trip         | Yes       |
+| GET /trips/                       | All users can get bus trips          | No        |
+| DELETE /trips/:id                 | Admin can delete a bus trip          | Yes       |
+| GET /trips/:id                    | All users can get a single bus trips | Yes       |
 
 ###### Tools Used
 

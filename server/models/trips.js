@@ -8,7 +8,8 @@ const tripSchema = mongoose.Schema({
   departure: { type: String, required: true },
   departureDateTime: { type: Date, default: Date.now },
   destinationDateTime: { type: Date, default: Date.now },
-  numberOfPassengers: { type: Number, required: true }
+  numberOfPassengers: { type: Number, required: true },
+  price: { type: Number, required: true }
 });
 
 export const Trips = mongoose.model("Trips", tripSchema);

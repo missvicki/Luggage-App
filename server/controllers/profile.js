@@ -54,7 +54,8 @@ export const updateAUser = async (req, res) => {
   try {
     const userData = await User.findOneAndUpdate(
       { email },
-      { firstname, lastname, phoneNumber }
+      { firstname, lastname, phoneNumber },
+      { new: true }
     );
     if (userData === null) {
       return res.status(responseCodes.NOT_FOUND).json({
@@ -101,7 +102,8 @@ export const changeUserPassword = async (req, res) => {
     const { password } = req.body;
     const data = await User.findOneAndUpdate(
       { email: user.email },
-      { password: await bcrypt.hash(password, 8) }
+      { password: await bcrypt.hash(password, 8) },
+      { new: true }
     );
     if (data === null) {
       return res.status(responseCodes.NOT_FOUND).json({

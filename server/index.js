@@ -2,6 +2,8 @@ import express from "express";
 import bodyParser from "body-parser";
 import dotEnv from "dotenv";
 import mongoose from "mongoose";
+import cors from "cors";
+
 import userRoutes from "./routes/user";
 import profileRoutes from "./routes/profile";
 import tripRoutes from "./routes/trips";
@@ -13,6 +15,7 @@ const port = process.env.PORT || 4000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 
 mongoose.Promise = global.Promise;
 
@@ -27,7 +30,8 @@ mongoose
   .connect(mongodbURL(), {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useFindAndModify: true
+    useFindAndModify: false,
+    useUnifiedTopology: true
   })
   .then(() => {
     console.log("Successfully connected to the database");
