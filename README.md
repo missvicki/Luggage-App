@@ -16,6 +16,7 @@ A passenger luggage Identifying system for buses with extensive functionality to
 - User can specify that they have luggage while booking the trip
 - Admin can add user luggage while user is boarding
 - Users can also pay for their trips
+- admin can see all booked trips by users
 
 ###### How to run the project locally.
 
