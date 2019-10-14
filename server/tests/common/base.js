@@ -87,15 +87,19 @@ export class AppTest {
   };
 
   static loginRandom = async user => {
-    const userToLogin = await User.findOne({ email: user.email });
-    const payload = {
-      id: userToLogin._id,
-      email: userToLogin.email,
-      firstname: userToLogin.firstname,
-      lastname: userToLogin.lastname,
-      admin: userToLogin.admin
-    };
-    this.token = jwt.sign(payload, process.env.JWT_SECRET);
+    try {
+      const userToLogin = await User.findOne({ email: user.email });
+      const payload = {
+        id: userToLogin._id,
+        email: userToLogin.email,
+        firstname: userToLogin.firstname,
+        lastname: userToLogin.lastname,
+        admin: userToLogin.admin
+      };
+      this.token = jwt.sign(payload, process.env.JWT_SECRET);
+    } catch (e) {
+      return e;
+    }
   };
 
   static __addAuthorization(request) {
