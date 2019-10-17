@@ -8,6 +8,7 @@ import userRoutes from "./routes/user";
 import profileRoutes from "./routes/profile";
 import tripRoutes from "./routes/trips";
 import bookRoutes from "./routes/book";
+import luggageRoutes from "./routes/luggage";
 
 dotEnv.config();
 
@@ -52,6 +53,7 @@ app.use(`${baseUrl}/auth`, userRoutes);
 app.use(`${baseUrl}/users`, profileRoutes);
 app.use(`${baseUrl}/trips`, tripRoutes);
 app.use(`${baseUrl}/book`, bookRoutes);
+app.use(`${baseUrl}/luggage`, luggageRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

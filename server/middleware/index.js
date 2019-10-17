@@ -9,6 +9,7 @@ import {
 
 import { tripVal, tripQuery, tripEdit } from "./validations/trips";
 import { bookTrip } from "./validations/book";
+import { luggageVal } from "./validations/luggage";
 
 export const validateCreateUser = (req, res, next) => {
   return JoiValidator.validateRequestBody(req, res, next, createUser);
@@ -54,4 +55,8 @@ export const validateDepDest = (req, res, next) => {
 
 export const validateBookTrip = (req, res, next) => {
   return JoiValidator.validateRequestBody(req, res, next, bookTrip);
+};
+
+export const validateLuggage = (req, res, next) => {
+  return JoiValidator.validateRequestBody(req, res, next, luggageVal);
 };
