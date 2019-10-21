@@ -24,4 +24,5 @@ script:
 after_script:
   - apexcov
   - ./cc-test-reporter format-coverage -t lcov ./server/coverage/lcov.info
+  - ./cc-test-reporter format-coverage -t lcov ./client/coverage/lcov.info
   - ./cc-test-reporter upload-coverage
