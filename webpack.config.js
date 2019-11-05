@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  mode: 'development',
-  entry: path.join(__dirname, '/client/src', 'index.tsx'),
+  mode: "development",
+  entry: path.join(__dirname, "/client/src", "index.tsx"),
   // Enable sourcemaps for debugging webpack's output.
-  devtool: 'source-map',
+  devtool: "source-map",
 
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: [".ts", ".tsx", ".js"]
   },
 
   module: {
@@ -19,36 +19,37 @@ module.exports = {
         test: /\.tsx?$/,
         exclude: [/\.test.tsx?$/, /node_modules/],
         include: /client/,
-        loader: ['ts-loader', 'awesome-typescript-loader?silent=true']
+        loader: ["ts-loader", "awesome-typescript-loader?silent=true"]
       },
       // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
       {
-        enforce: 'pre',
+        enforce: "pre",
         test: /\.js$/,
-        loader: 'source-map-loader'
+        loader: "source-map-loader"
       },
       {
-        test: /\.(scss|css)$/,
+        test: /\.css$/,
         use: [
+          "style-loader",
           {
-            loader: 'style-loader'
-          },
-          {
-            loader: 'css-loader'
-          },
-          {
-            loader: 'sass-loader'
-          },
-          {
-            loader: 'resolve-url-loader'
+            loader: "css-loader",
+            options: {
+              importLoaders: 1,
+              modules: true
+            }
           }
         ],
-        include: [path.join(__dirname, 'src'), /node_modules/]
+        include: /\.module\.css$/
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+        exclude: /\.module\.css$/
       },
       {
         test: /\.(jpe?g|png|gif|woff|woff2|eot|ttf|svg)(\?[a-z0-9=.]+)?$/,
         use: {
-          loader: 'url-loader?limit=100000'
+          loader: "url-loader?limit=100000"
         }
       }
     ]
@@ -59,12 +60,12 @@ module.exports = {
   // This is important because it allows us to avoid bundling all of our
   // dependencies, which allows browsers to cache those libraries between builds.
   externals: {
-    react: 'React',
-    'react-dom': 'ReactDOM'
+    react: "React",
+    "react-dom": "ReactDOM"
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, '/client/src', 'index.html')
+      template: path.join(__dirname, "/client/src", "index.html")
     })
   ]
 };

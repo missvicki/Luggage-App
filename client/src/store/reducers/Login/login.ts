@@ -17,14 +17,19 @@ export function loginReducer(
   action: LoginAction
 ): LoginState {
   switch (action.type) {
-    // case 'LOGIN_REQUEST':
-    //   return {...state, isLoading: true}
-    // case 'LOGIN_SUCCESS':
-    //   return {...state, isLoading: false, user: action.user}
-    // case 'LOGIN_FAILED':
-    //   return {...state, isLoading: false, loginError: action.loginError}
-    // case 'REMOVE_LOGIN_ERROR':
-    //   return {...state, loginError: "", isLoading: false};
+    case "LOGIN_REQUEST":
+      return { ...state, isLoading: true };
+    case "LOGIN_SUCCESS":
+      console.log("here now", {
+        ...state,
+        isLoading: false,
+        user: action.user
+      });
+      return { ...state, isLoading: false, user: action.user };
+    case "LOGIN_FAILED":
+      return { ...state, isLoading: false, loginError: action.loginError };
+    case "REMOVE_LOGIN_ERROR":
+      return { ...state, loginError: "", isLoading: false };
     default:
       return state;
   }

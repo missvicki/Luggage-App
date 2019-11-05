@@ -24,6 +24,7 @@ export function loginRequest(input: LoginData): LoginAction {
 }
 
 export function loginSuccess(user: UserData): LoginAction {
+  console.log(user, "am a user");
   return { type: "LOGIN_SUCCESS", user };
 }
 

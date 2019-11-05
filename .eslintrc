@@ -42,7 +42,8 @@
     "react/static-property-placement": 0,
     "react/jsx-props-no-spreading": 0,
     "react/jsx-curly-newline": 0,
-    "@typescript-eslint/no-empty-interface": 0
+    "@typescript-eslint/no-empty-interface": 0,
+    "@typescript-eslint/no-explicit-any": 0
   },
   "settings": {
     "react": {
