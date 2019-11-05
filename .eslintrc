@@ -17,7 +17,7 @@
     "jest": true
   },
   "rules": {
-    "prettier/prettier": ["error", { "singleQuote": true }],
+    "prettier/prettier": ["error", { "singleQuote": false }],
     "new-cap": 0,
     "import/prefer-default-export": "off",
     "import/no-unresolved": 0,
@@ -30,7 +30,19 @@
     "array-callback-return": 0,
     "no-underscore-dangle": 0,
     "@typescript-eslint/explicit-member-accessibility": 0,
-    "@typescript-eslint/explicit-function-return-type": 0
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "react/jsx-filename-extension": [
+      1,
+      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+    ],
+    "react/prop-types": 0,
+    "react/destructuring-assignment": 0,
+    "jsx-a11y/control-has-associated-label": 0,
+    "react/state-in-constructor": 0,
+    "react/static-property-placement": 0,
+    "react/jsx-props-no-spreading": 0,
+    "react/jsx-curly-newline": 0,
+    "@typescript-eslint/no-empty-interface": 0
   },
   "settings": {
     "react": {
