@@ -54,7 +54,7 @@ export const confirmed = async (req, res) => {
             status: status.ERROR,
             message: responseMessages.TOKEN_EXPIRED
           });
-        } else {
+        } 
           const user = await User.findOneAndUpdate(
             { email: decoded.email },
             { confirmed: true }
@@ -67,7 +67,7 @@ export const confirmed = async (req, res) => {
           return res
             .status(responseCodes.OK)
             .json({ message: responseMessages.EMAIL_CONFIRMED });
-        }
+        
       });
     }
   } catch (err) {
@@ -155,7 +155,7 @@ export const resetPassword = async (req, res) => {
             status: status.ERROR,
             message: responseMessages.TOKEN_EXPIRED
           });
-        } else {
+        } 
           const user = await User.findOneAndUpdate(
             { email: decoded.email },
             { password: await bcrypt.hash(password, 8) }
@@ -168,7 +168,7 @@ export const resetPassword = async (req, res) => {
           return res
             .status(responseCodes.OK)
             .json({ message: responseMessages.PASSWORD_CHANGED });
-        }
+        
       });
     }
   } catch (err) {

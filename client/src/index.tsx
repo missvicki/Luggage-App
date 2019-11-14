@@ -1,10 +1,16 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import React from "react";
+import ReactDOM from "react-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Provider } from "react-redux";
 
-import { Hello } from "./components/Hello";
+import store from "./store";
+import Routes from "./routes";
+
+export {};
 
 ReactDOM.render(
-  <Hello compiler="TypeScript" framework="React" />,
+  <Provider store={store}>
+    <Routes />
+  </Provider>,
   document.getElementById("root")
 );
