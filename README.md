@@ -59,7 +59,7 @@ A passenger luggage Identifying system for buses with extensive functionality to
 
 ###### Programming language
 
-- Javascript
+- Javascript(React.js, Node.js, Express.js), TypeScript, MongoDB
 
 ## Authors
 
