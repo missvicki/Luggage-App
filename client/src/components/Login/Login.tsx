@@ -26,6 +26,7 @@ export const Login: FunctionComponent<Props> = (props: Props) => {
                   type="email"
                   className="form-control"
                   onChange={props.onChange}
+                  name="email"
                 />
               </div>
               <div className="form-group">
@@ -34,13 +35,14 @@ export const Login: FunctionComponent<Props> = (props: Props) => {
                   type="password"
                   className="form-control"
                   onChange={props.onChange}
+                  name="password"
                 />
               </div>
 
               <div className="col-lg-12 login-button center-block">
                 <Button
                   type="submit"
-                  className="btn btn-outline-primary"
+                  className="btn btn-primary"
                   loading={props.isLoading}
                 >
                   LOGIN

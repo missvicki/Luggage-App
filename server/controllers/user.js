@@ -54,19 +54,20 @@ export const confirmed = async (req, res) => {
             status: status.ERROR,
             message: responseMessages.TOKEN_EXPIRED
           });
-        }
-        const user = await User.findOneAndUpdate(
-          { email: decoded.email },
-          { confirmed: true }
-        );
-        if (user === null) {
+        } 
+          const user = await User.findOneAndUpdate(
+            { email: decoded.email },
+            { confirmed: true }
+          );
+          if (user === null) {
+            return res
+              .status(responseCodes.NOT_FOUND)
+              .json({ message: responseMessages.USER_NOT_FOUND });
+          }
           return res
-            .status(responseCodes.NOT_FOUND)
-            .json({ message: responseMessages.USER_NOT_FOUND });
-        }
-        return res
-          .status(responseCodes.OK)
-          .json({ message: responseMessages.EMAIL_CONFIRMED });
+            .status(responseCodes.OK)
+            .json({ message: responseMessages.EMAIL_CONFIRMED });
+        
       });
     }
   } catch (err) {
@@ -154,19 +155,20 @@ export const resetPassword = async (req, res) => {
             status: status.ERROR,
             message: responseMessages.TOKEN_EXPIRED
           });
-        }
-        const user = await User.findOneAndUpdate(
-          { email: decoded.email },
-          { password: await bcrypt.hash(password, 8) }
-        );
-        if (user === null) {
+        } 
+          const user = await User.findOneAndUpdate(
+            { email: decoded.email },
+            { password: await bcrypt.hash(password, 8) }
+          );
+          if (user === null) {
+            return res
+              .status(responseCodes.NOT_FOUND)
+              .json({ message: responseMessages.USER_NOT_FOUND });
+          }
           return res
-            .status(responseCodes.NOT_FOUND)
-            .json({ message: responseMessages.USER_NOT_FOUND });
-        }
-        return res
-          .status(responseCodes.OK)
-          .json({ message: responseMessages.PASSWORD_CHANGED });
+            .status(responseCodes.OK)
+            .json({ message: responseMessages.PASSWORD_CHANGED });
+        
       });
     }
   } catch (err) {

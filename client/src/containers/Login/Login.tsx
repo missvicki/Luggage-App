@@ -6,6 +6,7 @@ import { login } from "../../store/actions/Login/Login";
 interface State {
   email: string;
   password: string;
+  [x: string]: string;
 }
 
 interface Props {
@@ -34,10 +35,11 @@ export class LoginContainer extends React.Component<Props, State> {
     };
   }
 
-  onChange = (e: React.FormEvent<HTMLInputElement>) => {
+  onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const key = e.currentTarget.name as keyof State;
+    const value = (e.target as HTMLInputElement).value;
     this.setState({
-      email: (e.target as HTMLInputElement).value,
-      password: (e.target as HTMLInputElement).value
+      [key]: value
     });
   };
 
@@ -73,7 +75,9 @@ export const mapDispatchToProps = (dispatch: any) => {
 };
 
 export const mapStateToProps = state => {
-  return { isLoading: state.login.isLoading };
+  return {
+    isLoading: state.login.isLoading
+  };
 };
 
 export default connect(

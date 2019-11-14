@@ -1,4 +1,5 @@
 import express from "express";
+import bodyParser from "body-parser";
 import dotEnv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -12,8 +13,9 @@ dotEnv.config();
 const app = express();
 const port = process.env.PORT || 4000;
 
-app.use(express.json());
-app.use(cors);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 
 mongoose.Promise = global.Promise;
 

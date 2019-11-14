@@ -92,16 +92,14 @@ label {
   letter-spacing: 1px;
 }
 
-.btn-outline-primary {
+.btn-primary {
   margin-top: 10px;
-  color: #fff;
   border-radius: 0px;
   font-weight: bold;
   letter-spacing: 1px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
-.btn-outline-primary:hover {
+.btn-primary:hover {
   background-color: #0db8de;
   right: 0px;
 }
