@@ -29,7 +29,8 @@ export default {
   FORBIDDEN: "You are forbidden from performing this action",
   TRIP_CREATED: "Trip has been created",
   UNKNOWN_ERROR: "Service is unavailable",
-  NOT_FOUND_TRIPS: "No trips were found",
+  NOT_FOUND_TRIPS: "No buses were found",
   NOT_FOUND: "Sorry, could not find what you're looking for",
-  TRIPS_FOUND: "Trips have been retrieved successfully"
+  TRIPS_FOUND: "Trips have been retrieved successfully",
+  DEST_DEPA_ERROR: "Destination and departure can not be similar"
 };
